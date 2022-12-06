@@ -1,19 +1,36 @@
-package com.nj.binding;
+package com.nj.employeetest;
 
-import com.nj.binding.Employee;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
 
-public class EmployeeTest {
-    public static void main(String[] args) {
+public class HelloApplication extends Application {
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+
         final Employee el = new Employee("Bob", 2000.0);
 
         computeTax(el.getSalary());
         el.addPropertyChangeListener(
-                EmployeeTest::handlePropertyChange);
+                HelloApplication::handlePropertyChange);
 
         el.setSalary(3000.0);
         el.setSalary(3000.0);
         el.setSalary(6000.0);
+
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 
     public static void handlePropertyChange(PropertyChangeEvent e) {
@@ -21,7 +38,7 @@ public class EmployeeTest {
             System.out.print("Salary has changed. ");
             System.out.print("Old:" + e.getOldValue());
             System.out.println(", New:" + e.getNewValue());
-            computeTax((Double)e.getNewValue());
+            computeTax((Double) e.getNewValue());
         }
     }
 

@@ -1,7 +1,8 @@
-package com.nj.binding;
+package com.nj.employeetest;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+//import javafx.beans.
 
 public class Employee {
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
