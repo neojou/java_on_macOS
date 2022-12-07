@@ -1,4 +1,5 @@
 
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.function.IntUnaryOperator;
 import java.util.IntSummaryStatistics;
@@ -32,13 +33,16 @@ public class Main {
         System.out.println();
 
         // SecureRandom
-        SecureRandom srnd = new SecureRandom();
-        System.out.println("default secure random algorithm = " + srnd.getAlgorithm());
-        for (int i = 0; i < 10; i++) {
-            r = 10 + srnd.nextInt(100 - 10 + 1);
-            System.out.print(" " + r);
+        try {
+            SecureRandom srnd = SecureRandom.getInstance("NativePRNGNonBlocking");
+            System.out.println("current random algorithm = " + srnd.getAlgorithm());
+            for (int i = 0; i < 10; i++) {
+                r = 10 + srnd.nextInt(100 - 10 + 1);
+                System.out.print(" " + r);
+            }
+            System.out.println();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-        System.out.println();
-
     }
 }
